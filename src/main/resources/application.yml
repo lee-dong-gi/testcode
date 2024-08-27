@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: testcode
+  datasource:
+    url: jdbc:postgresql://localhost:5432/testcode
+    username: postgres
+    password: postgres-first
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
