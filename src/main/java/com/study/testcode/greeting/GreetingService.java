@@ -1,4 +1,4 @@
-package com.study.testcode.lotto;
+package com.study.testcode.greeting;
 
 import org.springframework.stereotype.Service;
 

@@ -24,10 +24,11 @@ repositories {
 }
 
 dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
+    implementation 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
     runtimeOnly 'org.postgresql:postgresql'
@@ -36,9 +37,16 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+    // Query DSL
+    implementation "com.querydsl:querydsl-jpa"
+
     testImplementation 'org.mockito:mockito-core:5.4.0'  // Mockito 추가
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+test {
+    systemProperty 'file.encoding', 'UTF-8'
 }

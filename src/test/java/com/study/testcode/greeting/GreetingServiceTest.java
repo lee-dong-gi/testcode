@@ -1,6 +1,5 @@
-package com.study.testcode;
+package com.study.testcode.greeting;
 
-import com.study.testcode.lotto.GreetingService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,0 +1,14 @@
+<configuration>
+    <!-- 콘솔에 로그 출력 설정 -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset> <!-- 문자 인코딩 설정 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 로그 레벨 설정 -->
+    <root level="info">
+        <appender-ref ref="Console"/>
+    </root>
+</configuration>
