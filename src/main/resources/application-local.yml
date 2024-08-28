@@ -14,4 +14,4 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 logging:
-  config: classpath:logback.xml
+  config: classpath:logback-local.xml

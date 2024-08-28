@@ -36,6 +36,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testRuntimeOnly 'com.h2database:h2'
 
     // Query DSL
     implementation "com.querydsl:querydsl-jpa"
@@ -48,5 +49,7 @@ tasks.named('test') {
 }
 
 test {
+    useJUnitPlatform()
+    systemProperty 'spring.profiles.active', 'test' // "test" 프로파일 활성화
     systemProperty 'file.encoding', 'UTF-8'
 }
