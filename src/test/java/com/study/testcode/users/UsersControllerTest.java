@@ -41,8 +41,9 @@ public class UsersControllerTest {
 
         // Convert request object to MultiValueMap
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("searchOption", request.getSearchOption());
-        params.add("searchKeyword", request.getSearchKeyword());
+        params.add("searchOption", UsersRequestDto.SearchOptionEnum.EMAIL.name());
+        params.add("searchKeyword", "oksk4753@gmail.com"); // success case
+        //params.add("searchKeyword", "oksk327"); // fail case
 
         // when & then
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/users")

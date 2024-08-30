@@ -37,11 +37,13 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testRuntimeOnly 'com.h2database:h2'
-
-    // Query DSL
-    implementation "com.querydsl:querydsl-jpa"
-
     testImplementation 'org.mockito:mockito-core:5.4.0'  // Mockito 추가
+
+    // Spring boot 3.x 이상에서 QueryDsl 패키지를 정의하는 방법
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 }
 
 tasks.named('test') {
@@ -52,4 +54,10 @@ test {
     useJUnitPlatform()
     systemProperty 'spring.profiles.active', 'test' // "test" 프로파일 활성화
     systemProperty 'file.encoding', 'UTF-8'
+}
+
+def querydslDir = layout.buildDirectory.dir("generated/querydsl").get().asFile
+
+sourceSets {
+    main.java.srcDirs += [querydslDir]
 }

@@ -16,6 +16,7 @@ public class UsersService {
 
     @Transactional(readOnly = true)
     public List<UsersResponseDto.UsersResponse> getUsersList(UsersRequestDto.GetUsersRequest request) {
-        return UsersResponseDto.UsersResponse.of(usersRepository.findAll());
+        return usersRepository.getUsersList(request);
+        //return UsersResponseDto.UsersResponse.of(usersRepository.findAll());
     }
 }

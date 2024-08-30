@@ -29,17 +29,7 @@ public class UsersResponseDto {
 
         public static List<UsersResponse> of(List<Users> userList) {
             List<UsersResponse> responses = new ArrayList<>();
-
-            userList.forEach(user -> {
-                responses.add(
-                        UsersResponse.builder()
-                                .id(user.getId())
-                                .name(user.getName())
-                                .email(user.getEmail())
-                                .build()
-                );
-            });
-
+            userList.forEach(user -> responses.add(of(user)));
             return responses;
         }
 

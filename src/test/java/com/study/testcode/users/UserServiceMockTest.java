@@ -25,21 +25,19 @@ import static org.mockito.Mockito.*;
 @TestPropertySource(locations = CONFIG_TEST)
 public class UserServiceMockTest {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceMockTest.class);
-
+    
     @Mock
-    private UsersRepository mockUsersRepository;
-    @InjectMocks
     private UsersService mockUsersService;
 
     @Test
-    void mockTestGetUsersList() {
+    void mockTestGetUsersList() throws Exception {
         // given
         UsersRequestDto.GetUsersRequest request = new UsersRequestDto.GetUsersRequest();
-        List<Users> mockUsers = new ArrayList<>();
+        List<UsersResponseDto.UsersResponse> mockUsers = new ArrayList<>();
         // 필요한 만큼 Users 객체를 추가해서 테스트 데이터를 설정
-        mockUsers.add(new Users(1L, "이동기", "oksk4753@gmail.com"));
+        mockUsers.add(new UsersResponseDto.UsersResponse(1L, "이동기", "oksk4753@gmail.com"));
 
-        when(mockUsersRepository.findAll()).thenReturn(mockUsers);
+        when(mockUsersService.getUsersList(request)).thenReturn(mockUsers);
 
         // when
         List<UsersResponseDto.UsersResponse> results = mockUsersService.getUsersList(request);
@@ -48,6 +46,6 @@ public class UserServiceMockTest {
         results.forEach(result -> logger.info("result :: {}", result.getName()));
         assertNotNull(results);
         assertEquals(mockUsers.size(), results.size());
-        verify(mockUsersRepository, times(1)).findAll();
+        verify(mockUsersService, times(1)).getUsersList(request);
     }
 }

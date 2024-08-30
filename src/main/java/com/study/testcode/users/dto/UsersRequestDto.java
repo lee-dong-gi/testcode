@@ -9,6 +9,10 @@ public class UsersRequestDto {
     @NoArgsConstructor
     public static class GetUsersRequest {
         private String searchKeyword;
-        private String searchOption;
+        private SearchOptionEnum searchOption;
+    }
+
+    public enum SearchOptionEnum {
+        ID, NAME, EMAIL
     }
 }

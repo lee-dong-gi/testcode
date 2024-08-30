@@ -1,6 +1,8 @@
 package com.study.testcode.users;
 
 import com.study.testcode.config.UsersTestConfig;
+import com.study.testcode.users.dto.UsersRequestDto;
+import com.study.testcode.users.dto.UsersResponseDto;
 import com.study.testcode.users.entity.Users;
 import com.study.testcode.users.repository.UsersRepository;
 import com.study.testcode.users.service.UsersService;
@@ -25,16 +27,16 @@ public class UserServiceTest {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UsersService usersService;
 
     @Test
-    void testGetUsers() {
+    void testGetUsers() throws Exception {
         // given
         //when
-//        Optional<Users> result = usersRepository.findByEmail("oksk4753@gmail.com");
-        List<Users> result = usersRepository.findAll();
+        UsersRequestDto.GetUsersRequest request = new UsersRequestDto.GetUsersRequest();
+        List<UsersResponseDto.UsersResponse> results = usersService.getUsersList(request);
 
         // then
-        assertThat(!result.isEmpty()).isTrue();
+        assertThat(!results.isEmpty()).isTrue();
     }
 }
