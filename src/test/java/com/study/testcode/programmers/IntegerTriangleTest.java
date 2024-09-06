@@ -1,9 +1,6 @@
 package com.study.testcode.programmers;
 
-import com.study.testcode.users.UserServiceTest;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
@@ -13,20 +10,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @TestPropertySource(locations = CONFIG_TEST)
-public class GameMapShortPathTest {
+public class IntegerTriangleTest {
     @Autowired
-    private GameMapShortPath gameMapShortPath;
+    private IntegerTriangle integerTriangle;
 
     @Test
-    void gameMapShortPathTest() {
-        int[][] maps = {
-                {1, 0, 1, 1, 1},
-                {1, 0, 1, 0, 1},
-                {1, 0, 1, 1, 1},
-                {1, 1, 1, 0, 1},
-                {0, 0, 0, 0, 1}
+    void integerTriangleMaxValueTest() {
+        int[][] triangle = {
+                {7},
+                {3, 8},
+                {8, 1, 0},
+                {2, 7, 4, 4},
+                {4, 5, 2, 6, 5}
         };
 
-        assertEquals(11, gameMapShortPath.solution(maps));
+        assertEquals(30, integerTriangle.mySolution(triangle));
+        assertEquals(30, integerTriangle.bestSolution(triangle));
     }
 }
