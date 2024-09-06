@@ -9,9 +9,9 @@ import java.util.Queue;
 @Service
 public class GameMapShortPath {
 
-    // 상하좌우 이동을 위한 방향 배열 (오른쪽, 아래, 왼쪽, 위)
-    int[] dx = {1, 0, -1, 0};
-    int[] dy = {0, 1, 0, -1};
+    // 상하좌우 이동을 위한 방향 배열 (0:오른쪽, 1:아래, 2:왼쪽, 3:위)
+    int[] dx = {1, 0, -1, 0}; // x축 팩터
+    int[] dy = {0, 1, 0, -1}; // y축 팩터
 
     public int solution(int[][] maps) {
         int answer;
@@ -62,6 +62,7 @@ public class GameMapShortPath {
                     continue;
 
                 // 아직 방문하지 않았고, 이동할 수 있는 길(1)일 때
+                // BFS 에서 이미 방문한 위치는 다시 큐에 추가되지 않기 때문에 최단 거리 계산이 가능
                 if (visited[nX][nY] == 0 && maps[nX][nY] == 1) {
                     // 새로운 좌표의 최단 거리는 현재 좌표의 거리 + 1
                     visited[nX][nY] = visited[cX][cY] + 1;
