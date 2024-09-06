@@ -1,13 +1,11 @@
 package com.study.testcode.programmers;
 
-import com.study.testcode.config.UsersTestConfig;
 import com.study.testcode.users.UserServiceTest;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 
 import static com.study.testcode.common.constant.DateConstants.CONFIG_TEST;
