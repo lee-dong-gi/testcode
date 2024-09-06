@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+// https://school.programmers.co.kr/learn/courses/30/lessons/258712
 @Service
 public class MostReceivedGiftNonCheating {
     public int solution(String[] friends, String[] gifts) {
