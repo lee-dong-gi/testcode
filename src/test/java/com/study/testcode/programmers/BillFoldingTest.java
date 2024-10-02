@@ -15,7 +15,7 @@ public class BillFoldingTest {
     private BillFolding billFolding;
 
     @Test
-    void targetNumberTest() {
+    void billFoldingTest() {
         int[] wallet1 = {30, 15};
         int[] bill1 = {26, 17};
         assertEquals(1, billFolding.solution(wallet1, bill1));
