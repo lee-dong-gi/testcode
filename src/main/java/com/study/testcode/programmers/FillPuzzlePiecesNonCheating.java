@@ -15,11 +15,17 @@ public class FillPuzzlePiecesNonCheating {
     static final int[] dy = {0, 1, 0, -1}; // y축 이동 팩터
 
     public int solution(int[][] game_board, int[][] table) {
-        List<int[][]> zeroPointPolygons = findPolygons(table, 1);
-        List<int[][]> gameBoardPolygons = findPolygons(game_board, 0);
-        return numberOfPuzzlesFilled(gameBoardPolygons, zeroPointPolygons);
+        // table 배열의 폴리곤 리스트 추출, table 배열의 이동가능 값은 1
+        List<int[][]> tableZeroPointPolygons = findPolygons(table, 1);
+
+        // game_board 배열의 폴리곤 리스트 추출, game_board 배열의 이동가능 값은 0
+        List<int[][]> gameBoardZeroPointPolygons = findPolygons(game_board, 0);
+
+        // 서로 일치하는 폴리곤의 격자 총 개수 세고 반환
+        return numberOfPuzzlesFilled(gameBoardZeroPointPolygons, tableZeroPointPolygons);
     }
 
+    // 폴리곤의 격자 개수
     private static int getPolygonGridCount(int[][] target) {
         int count = 0;
         for (int x = 0; x < target.length; x++) {
@@ -33,6 +39,7 @@ public class FillPuzzlePiecesNonCheating {
         return count;
     }
 
+    // game_board 폴리곤과 table 폴리곤이 완전히 일치하는지 확인
     private static int numberOfPuzzlesFilledRotate(List<int[][]> gameBoardPolygons, int[][] rotatedPolygon) {
         int rotatedPolygonCount = getPolygonGridCount(rotatedPolygon);
         int count = 0;
@@ -72,7 +79,7 @@ public class FillPuzzlePiecesNonCheating {
             }
 
             if (count == rotatedPolygonCount) {
-                gameBoardPolygons.remove(gameBoardPolygon); // 검사된 완료된 폴리곤 제거
+                gameBoardPolygons.remove(gameBoardPolygon); // 검사된 완료된 폴리곤은 리스트에서 제거
                 break;
             }
         }
@@ -80,22 +87,22 @@ public class FillPuzzlePiecesNonCheating {
         return count == rotatedPolygonCount ? count : 0;
     }
 
-    private static int numberOfPuzzlesFilled(List<int[][]> gameBoardPolygons, List<int[][]> zeroPointPolygons) {
+    private static int numberOfPuzzlesFilled(List<int[][]> gameBoardZeroPointPolygons, List<int[][]> tableZeroPointPolygons) {
         int count = 0;
-        for (int[][] polygon : zeroPointPolygons) {
+        for (int[][] tableZeroPointPolygon : tableZeroPointPolygons) {
             // 0도 회전
-            int innerCount = numberOfPuzzlesFilledRotate(gameBoardPolygons, polygon);
+            int innerCount = numberOfPuzzlesFilledRotate(gameBoardZeroPointPolygons, tableZeroPointPolygon);
 
             if (innerCount == 0) { // 90도 회전
-                innerCount = numberOfPuzzlesFilledRotate(gameBoardPolygons, adjustToOrigin(rotate90(polygon)));
+                innerCount = numberOfPuzzlesFilledRotate(gameBoardZeroPointPolygons, adjustToOrigin(rotate90(tableZeroPointPolygon)));
             }
 
             if (innerCount == 0) { // 180도 회전
-                innerCount = numberOfPuzzlesFilledRotate(gameBoardPolygons, adjustToOrigin(rotate90(rotate90(polygon))));
+                innerCount = numberOfPuzzlesFilledRotate(gameBoardZeroPointPolygons, adjustToOrigin(rotate90(rotate90(tableZeroPointPolygon))));
             }
 
             if (innerCount == 0) { // 270도 회전
-                innerCount = numberOfPuzzlesFilledRotate(gameBoardPolygons, adjustToOrigin(rotate90(rotate90(rotate90((polygon))))));
+                innerCount = numberOfPuzzlesFilledRotate(gameBoardZeroPointPolygons, adjustToOrigin(rotate90(rotate90(rotate90((tableZeroPointPolygon))))));
             }
 
             count += innerCount;
@@ -104,20 +111,21 @@ public class FillPuzzlePiecesNonCheating {
         return count;
     }
 
-    private static List<int[][]> findPolygons(int[][] table, int movableNumber){
+    // game_board와 table 배열의 폴리곤 리스트 추출하기 위한 메서드
+    private static List<int[][]> findPolygons(int[][] target, int movableNumber){
         List<int[][]> polygons = new ArrayList<>();
-        int[][] visited = new int[table.length][table[0].length];
+        int[][] visited = new int[target.length][target[0].length]; // 이미 추출한 폴리곤 중복추출 방지
 
-        for (int x = 0; x < table.length; x++) {
-            for (int y = 0; y < table[x].length; y++) {
-                if (visited[x][y] == 1) {
+        for (int x = 0; x < target.length; x++) {
+            for (int y = 0; y < target[x].length; y++) {
+                if (visited[x][y] == 1) { // 이미 방문하였다면 패스
                     continue;
                 }
 
-                int value = table[x][y];
+                int value = target[x][y];
 
-                if (value == movableNumber) {
-                    int[][] polygon = findPolygonByBfs(new int[]{x, y}, table, movableNumber, visited);
+                if (value == movableNumber) { // 방문한 기록이 없고 이동 가능한 경로라면 도형 추출
+                    int[][] polygon = findPolygonByBfs(new int[]{x, y}, target, movableNumber, visited);
                     polygons.add(polygon);
                 }
             }
@@ -127,6 +135,7 @@ public class FillPuzzlePiecesNonCheating {
         return polygons;
     }
 
+    // bfs를 이용한 도형 추출 메서드
     private static int[][] findPolygonByBfs(int[] start, int[][] table, int movableNumber, int[][] visited) {
         int[][] polygon = new int[table.length][table[0].length];
         int x = start[0];
@@ -166,9 +175,10 @@ public class FillPuzzlePiecesNonCheating {
             }
         }
 
-        return adjustToOrigin(polygon);
+        return adjustToOrigin(polygon); // 0,0에 맞춰 반환
     }
 
+    // 좌표로 이루어진 도형을 90도 회전하는 메서드
     private static int[][] rotate90(int[][] points) {
         int rows = points.length;         // 원래 배열의 행 길이
         int cols = points[0].length;      // 원래 배열의 열 길이
@@ -183,6 +193,7 @@ public class FillPuzzlePiecesNonCheating {
         return rotated;
     }
 
+    // 도형의 x 최소값과 y 최소값을 구하고 모든 좌표에 해당 값을 뺌으로서 0,0에 맞추기 위한 요소로 사용됨
     private static int[] finMinCoordinates(int[][] points) {
         int minX = Integer.MAX_VALUE; // 초기값으로 가장 큰 정수 설정
         int minY = Integer.MAX_VALUE; // 초기값으로 가장 큰 정수 설정
@@ -207,6 +218,7 @@ public class FillPuzzlePiecesNonCheating {
         return new int[]{minX, minY}; // 최소 x, y 값을 배열로 반환
     }
 
+    // 도형의 x 최소값과 y 최소값을 구하고 모든 좌표에 해당 값을 뺌으로서 0,0에 맞춤
     private static int[][] adjustToOrigin(int[][] points) {
         int[] minCoordinates = finMinCoordinates(points);
         int minX = minCoordinates[0];
@@ -222,6 +234,6 @@ public class FillPuzzlePiecesNonCheating {
             }
         }
 
-        return adjusted; // 조정된 좌표 반환
+        return adjusted; // 0,0 기준으로 조정된 도형의 좌표 반환
     }
 }
