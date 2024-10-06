@@ -10,18 +10,18 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 @SpringBootTest
 @TestPropertySource(locations = CONFIG_TEST)
-public class EnglishWordChainTest {
+public class EnglishWordChainNonCheatingTest {
     @Autowired
-    private EnglishWordChain englishWordChain;
+    private EnglishWordChainNonCheating englishWordChainNonCheating;
 
     @Test
     void englishWordChainTest() {
         String[] test1 = {"tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"};
-        int[] result1 = englishWordChain.solution(3, test1);
+        int[] result1 = englishWordChainNonCheating.solution(3, test1);
         assertArrayEquals(new int[]{3,3}, result1);
 
         String[] test2 = {"hello", "observe", "effect", "take", "either", "recognize", "encourage", "ensure", "establish", "hang", "gather", "refer", "reference", "estimate", "executive"};
-        int[] result2 = englishWordChain.solution(5, test2);
+        int[] result2 = englishWordChainNonCheating.solution(5, test2);
         assertArrayEquals(new int[]{0,0}, result2);
     }
 }

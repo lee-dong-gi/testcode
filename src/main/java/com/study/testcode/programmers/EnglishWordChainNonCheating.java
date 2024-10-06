@@ -6,7 +6,7 @@ import java.util.*;
 
 // https://school.programmers.co.kr/learn/courses/30/lessons/12981
 @Service
-public class EnglishWordChain {
+public class EnglishWordChainNonCheating {
 
     public int[] solution(int n, String[] words) {
         Set<String> dupCheckSet = new HashSet<>(); // 중복체크를 위한 HashSet

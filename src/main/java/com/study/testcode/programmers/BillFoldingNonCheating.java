@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 // https://school.programmers.co.kr/learn/courses/30/lessons/340199
 @Service
-public class BillFolding {
+public class BillFoldingNonCheating {
 
     public int solution(int[] wallet, int[] bill) {
         int answer = 0;

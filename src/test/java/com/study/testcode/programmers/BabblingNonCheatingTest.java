@@ -10,18 +10,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @TestPropertySource(locations = CONFIG_TEST)
-public class BillFoldingTest {
+public class BabblingNonCheatingTest {
     @Autowired
-    private BillFolding billFolding;
+    private BabblingNonCheating babblingNonCheating;
 
     @Test
     void billFoldingTest() {
-        int[] wallet1 = {30, 15};
-        int[] bill1 = {26, 17};
-        assertEquals(1, billFolding.solution(wallet1, bill1));
+        String[] test1 = new String[]{"aya", "yee", "u", "maa", "wyeoo"};
+        assertEquals(1, babblingNonCheating.solution(test1));
 
-        int[] wallet2 = {50, 50};
-        int[] bill2 = {100, 241};
-        assertEquals(4, billFolding.solution(wallet2, bill2));
+        String[] test2 = new String[]{"ayaye", "uuuma", "ye", "yemawoo", "ayaa"};
+        assertEquals(3, babblingNonCheating.solution(test2));
     }
 }
