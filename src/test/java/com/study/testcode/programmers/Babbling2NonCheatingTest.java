@@ -10,16 +10,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @TestPropertySource(locations = CONFIG_TEST)
-public class BabblingNonCheatingTest {
+public class Babbling2NonCheatingTest {
     @Autowired
-    private BabblingNonCheating babblingNonCheating;
+    private Babbling2NonCheating babbling2NonCheating;
 
     @Test
-    void babblingTest() {
-        String[] test1 = new String[]{"aya", "yee", "u", "maa", "wyeoo"};
-        assertEquals(1, babblingNonCheating.solution(test1));
+    void babbling2Test() {
+        String[] test1 = new String[]{"aya", "yee", "u", "maa"};
+        assertEquals(1, babbling2NonCheating.solution(test1));
 
-        String[] test2 = new String[]{"ayaye", "uuuma", "ye", "yemawoo", "ayaa"};
-        assertEquals(3, babblingNonCheating.solution(test2));
+        String[] test2 = new String[]{"ayaye", "uuu", "yeye", "yemawoo", "ayaayaa"};
+        assertEquals(2, babbling2NonCheating.solution(test2));
     }
 }
