@@ -16,6 +16,8 @@ public class KthNumberNonCheatingTest {
     private KthNumberNonCheating kthNumberNonCheating;
     @Autowired
     private KthNumber kthNumber;
+    @Autowired
+    private KthNumberImplQuickSort kthNumberImplQuickSort;
 
     @Test
     void kthNumberTest() {
@@ -24,5 +26,6 @@ public class KthNumberNonCheatingTest {
         int[] expected = {5, 6, 3};
         assertArrayEquals(expected, kthNumberNonCheating.solution(array, commands));
         assertArrayEquals(expected, kthNumber.solution(array, commands));
+        assertArrayEquals(expected, kthNumberImplQuickSort.solution(array, commands));
     }
 }
