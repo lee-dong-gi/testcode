@@ -7,20 +7,20 @@ public class PuzzleGameNonCheating {
     public int solution(int[] diffs, int[] times, long limit) {
         int maxDiff = 0;
         for (int diff : diffs) {
-            maxDiff = Math.max(maxDiff, diff);
+            maxDiff = Math.max(maxDiff, diff); // 레벨 중 가장 큰 값을 MAX 값으로 설정
         }
 
         int left = 1;
         int right = maxDiff;
         int answer = maxDiff;
 
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
+        while (left <= right) { // 이진탐색
+            int mid = left + (right - left) / 2; // 중간을 기준으로
             long timeTaken = calculateTimeTaken(diffs, times, mid, limit);
 
             if (timeTaken <= limit) {
                 answer = mid;
-                right = mid - 1;
+                right = mid - 1; // 소요시간이 더 작은 값이 존재하는지 확인
             } else {
                 left = mid + 1;
             }
